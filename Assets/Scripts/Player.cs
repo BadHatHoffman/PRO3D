@@ -15,15 +15,15 @@ public class Player : MonoBehaviour
         GetComponent<PlayerInput>().onActionTriggered += HandleAction;
     }
 
-    void Update()
+    void  LateUpdate()
     {
-        input.x = Input.GetAxis("Horizontal");  
-        input.y = Input.GetAxis("Vertical");  
-
         transform.Translate(input * speed * Time.deltaTime);
 
         Gamepad gamepad = Gamepad.current;
         if (gamepad == null) return;
+
+        if (Input.anyKey)
+            return;   
 
         input = gamepad.leftStick.ReadValue();
 
